@@ -60,7 +60,7 @@ class DadJoke {
       this[`animate_${this.updateAnimation}`](this.container);
       setTimeout(() => {
         requestAnimationFrame(() => (this.output.innerText = joke));
-      }, 200);
+      }, 300);
     } else {
       this.output.innerText = joke;
     }
@@ -73,17 +73,38 @@ class DadJoke {
       });
     };
     setTimeout(() => {
-      requestAnimationFrame(() => rotate(element, 10));
+      rotate(element, 10);
       setTimeout(() => {
-        requestAnimationFrame(() => rotate(element, -4));
+        rotate(element, -4);
         setTimeout(() => {
-          requestAnimationFrame(() => rotate(element, 8));
+          rotate(element, 8);
           setTimeout(() => {
-            requestAnimationFrame(() => rotate(element, 0));
+            rotate(element, 0);
           }, 100);
         }, 100);
       }, 100);
     }, 100);
+  };
+  animate_fade = (element) => {
+    let fadeIn = false,
+      opacity = 100,
+      opacityStep = 20;
+    const fade = () => {
+      setTimeout(() => {
+        console.log(opacity);
+        if (opacity === 0) {
+          opacityStep *= -1;
+          fadeIn = true;
+        }
+        opacity -= opacityStep;
+        element.style.opacity = opacity / 100;
+
+        if (!(opacity === 100 && fadeIn)) {
+          requestAnimationFrame(fade);
+        }
+      }, 50);
+    };
+    requestAnimationFrame(fade);
   };
 }
 
