@@ -1,0 +1,64 @@
+.container_sm {
+  max-width: 600px;
+  width: 100%;
+  padding: 0 20px;
+  margin: 0 auto;
+}
+
+section.joke {
+  margin: 40px 0;
+}
+
+section.joke .output {
+  display: block;
+  font-family: "Roboto", "Montserrat", sans-serif;
+  font-size: 30px;
+  text-align: center;
+}
+
+.card {
+  position: relative;
+  max-width: 500px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 100px 20px 200px;
+  border: 1px solid;
+  transition: all 0.4s;
+}
+
+.card:hover {
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s;
+}
+
+.card img {
+  display: block;
+  width: 40%;
+  margin: 0 auto;
+  position: absolute;
+  bottom: 50px;
+  left: 0;
+  right: 0;
+}
+
+[data-action] {
+  cursor: pointer;
+}
+
+.button {
+  border: none;
+  padding: 10px 20px;
+}
+
+.button_pretty {
+  border: 1px solid #555;
+  border-radius: 5px;
+  text-transform: uppercase;
+  transition: all 0.4s;
+}
+
+.button_pretty:hover {
+  border-color: transparent;
+  box-shadow: 0 0 5px #555;
+  transition: all 0.2s;
+}
