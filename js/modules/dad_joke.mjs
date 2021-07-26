@@ -7,8 +7,8 @@ class DadJoke {
     animateOnUpdate = false,
     updateAnimation = "shake",
   }) {
-    this.outputSelector = outputSelector;
-    this.containerSelector = containerSelector;
+    this.output = document.querySelector(outputSelector);
+    this.container = document.querySelector(containerSelector);
     this.triggerSelector = triggerSelector;
     this.speechSynthesis = speechSynthesis;
     this.animateOnUpdate = animateOnUpdate;
@@ -17,12 +17,19 @@ class DadJoke {
   }
   setTriggers = (triggerSelector) => {
     const triggers = document.querySelectorAll(triggerSelector);
-    triggers.forEach((item) =>
-      item.addEventListener("click", this.updateOutputWithSpeech)
-    );
+    triggers.forEach((item) => {
+      item.addEventListener("click", this.updateOutputWithSpeech);
+      item.addEventListener(
+        "click",
+        () => {
+          console.log("once");
+          this.container.classList.add("active");
+        },
+        { once: true }
+      );
+    });
   };
   init = () => {
-    this.output = document.querySelector(this.outputSelector);
     if (this.triggerSelector) {
       this.setTriggers(this.triggerSelector);
     }
@@ -49,13 +56,12 @@ class DadJoke {
       speechSynthesis.speak(utterance);
     }
     if (this.animateOnUpdate) {
-      const container = document.querySelector(this.containerSelector);
-      this[`animate_${this.updateAnimation}`](container);
+      this[`animate_${this.updateAnimation}`](this.container);
       setTimeout(() => {
-        this.output.innerText = `"${joke}"`;
+        this.output.innerText = joke;
       }, 160);
     } else {
-      this.output.innerText = `"${joke}"`;
+      this.output.innerText = joke;
     }
   };
 

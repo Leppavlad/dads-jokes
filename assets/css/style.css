@@ -1,3 +1,9 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 .container_sm {
   max-width: 600px;
   width: 100%;
@@ -10,10 +16,30 @@ section.joke {
 }
 
 section.joke .output {
+  position: relative;
   display: block;
+  width: fit-content;
+  margin: 0 auto;
   font-family: "Roboto", "Montserrat", sans-serif;
   font-size: 30px;
   text-align: center;
+}
+
+section.joke .output::before {
+  content: "“";
+  font-size: 70px;
+  font-weight: bold;
+  position: absolute;
+  top: -60px;
+  left: -10px;
+}
+section.joke .output::after {
+  content: "„";
+  font-size: 70px;
+  font-weight: bold;
+  position: absolute;
+  bottom: -40px;
+  right: -10px;
 }
 
 .card {
@@ -21,9 +47,21 @@ section.joke .output {
   max-width: 500px;
   width: 100%;
   margin: 0 auto;
-  padding: 100px 20px 200px;
   border: 1px solid;
   transition: all 0.4s;
+}
+.card:not(.active) {
+  padding: 100px 40px;
+}
+.card:not(.active) img {
+  display: none;
+}
+
+.card.active {
+  padding: 100px 40px 200px;
+}
+.card.active img {
+  display: block;
 }
 
 .card:hover {
@@ -32,7 +70,6 @@ section.joke .output {
 }
 
 .card img {
-  display: block;
   width: 40%;
   margin: 0 auto;
   position: absolute;
