@@ -22,7 +22,6 @@ class DadJoke {
       item.addEventListener(
         "click",
         () => {
-          console.log("once");
           this.container.classList.add("active");
         },
         { once: true }
@@ -35,18 +34,20 @@ class DadJoke {
     }
   };
   fetchJoke = async () => {
-    const response = await fetch("https://icanhazdadjoke.com/slack");
+    const response = await fetch("https://icanhazdadjoke.com/", {
+      headers: {
+        Accept: "application/json",
+      },
+    });
     const data = await response.json();
-    const joke = data.attachments[0].text;
+    const { joke } = data;
     return joke;
   };
   updateOutput = async () => {
     const joke = await this.fetchJoke();
-
     if (this.animateOnUpdate) {
       this[`animate_${this.updateAnimation}`]();
     }
-
     this.output.innerText = joke;
   };
   updateOutputWithSpeech = async () => {
@@ -58,8 +59,8 @@ class DadJoke {
     if (this.animateOnUpdate) {
       this[`animate_${this.updateAnimation}`](this.container);
       setTimeout(() => {
-        this.output.innerText = joke;
-      }, 160);
+        requestAnimationFrame(() => (this.output.innerText = joke));
+      }, 200);
     } else {
       this.output.innerText = joke;
     }
@@ -72,17 +73,17 @@ class DadJoke {
       });
     };
     setTimeout(() => {
-      rotate(element, 10);
+      requestAnimationFrame(() => rotate(element, 10));
       setTimeout(() => {
-        rotate(element, -4);
+        requestAnimationFrame(() => rotate(element, -4));
         setTimeout(() => {
-          rotate(element, 8);
+          requestAnimationFrame(() => rotate(element, 8));
           setTimeout(() => {
-            rotate(element, 0);
-          }, 80);
-        }, 80);
-      }, 80);
-    }, 80);
+            requestAnimationFrame(() => rotate(element, 0));
+          }, 100);
+        }, 100);
+      }, 100);
+    }, 100);
   };
 }
 
